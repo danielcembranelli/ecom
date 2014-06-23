@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:v="urn:schemas-microsoft-com:vml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Distancias com roteiros e mapa entre cidades</title>
+<body>
+
+  </head>
+  
+  
+ <div align=center> <h2>Distancias para Obra</h2>
+  <form action="Distancia.php" method="post">
+
+  <table>
+
+   <tr><th align="right">De:&nbsp;</th>
+   <td><select name="from" id="from">
+     <option>Selecione a filial</option>
+     <option <? if($_POST[from]=='Santo André - SP'){?> selected<? } ?>>Santo André - SP</option>
+     <option <? if($_POST[from]=='Sumaré - SP'){?> selected<? } ?>>Sumaré - SP</option>
+     <option <? if($_POST[from]=='São José do Rio Preto - SP'){?> selected<? } ?>>São José do Rio Preto - SP</option>
+     <option <? if($_POST[from]=='São José dos Campos - SP'){?> selected<? } ?>>São José dos Campos - SP</option>
+     <option <? if($_POST[from]=='Uberlândia - MG'){?> selected<? } ?>>Uberlândia - MG</option>
+     <option <? if($_POST[from]=='Duque de Caxias - RJ'){?> selected<? } ?>>Duque de Caxias - RJ</option>
+     <option <? if($_POST[from]=='Parauapebas - PA'){?> selected<? } ?>>Parauapebas - PA</option>
+   </select></td>
+   <th align="right">&nbsp;&nbsp;Para:&nbsp;</th>
+   <td align="right"><input type="text" size="25" id="toAddress" value="<?=$_POST[to]?>" name="to" /></td>
+ <td align="right"><input type=hidden value="pt" id="locale" name="locale">
+    <input name="submit" type="submit" value="Roteiro" /></td></tr>
+   <tr>
+     <th align="right">&nbsp;</th>
+     <td>&nbsp;</td>
+     <th align="right">&nbsp;</th>
+     <td align="right">Exemplo : Salvador-BA</td>
+     <td align="right">&nbsp;</td>
+   </tr>
+  </table>
+  <div align=center></div>
+</form>
+<br/>
+
+<?
+if($_POST[to]!=''){
+	$lines = file_get_contents('http://maps.google.com/maps?saddr='.urlencode($_POST[from]).'&daddr='.urlencode($_POST[to]).'&hl=en&z=1');
+	$dados = split('distance:"', $lines);
+	$dist  = split('"',$dados[1]);
+	echo $dist[0];
+}
+?>
+ </div>
+  </body>
+</html>

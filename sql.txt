@@ -1,0 +1,267 @@
+CREATE TABLE `calendario` (
+  `idCal` int(150) NOT NULL auto_increment,
+  `titCal` varchar(60) NOT NULL,
+  `descCal` text NOT NULL,
+  `dataCal` date NOT NULL,
+  `dtCadCal` datetime NOT NULL,
+  `dtAltCal` datetime NOT NULL,
+  PRIMARY KEY  (`idCal`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tabela de Calendário' AUTO_INCREMENT=1 ;
+
+-- 
+-- Extraindo dados da tabela `calendario`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `cargo`
+-- 
+
+CREATE TABLE `cargo` (
+  `idCargo` int(10) NOT NULL auto_increment,
+  `nomeCargo` varchar(50) NOT NULL,
+  `supCargo` int(10) NOT NULL,
+  PRIMARY KEY  (`idCargo`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tabela de Cargos' AUTO_INCREMENT=5 ;
+
+-- 
+-- Extraindo dados da tabela `cargo`
+-- 
+
+INSERT INTO `cargo` VALUES (1, 'Cozinheiro', 0);
+INSERT INTO `cargo` VALUES (2, 'Gerente', 0);
+INSERT INTO `cargo` VALUES (3, 'Garçon', 0);
+INSERT INTO `cargo` VALUES (4, 'Metri', 0);
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `colaborador`
+-- 
+
+CREATE TABLE `colaborador` (
+  `idColaborador` int(10) NOT NULL auto_increment,
+  `nomeColaborador` varchar(60) NOT NULL,
+  `dtAdmColaborador` date NOT NULL,
+  `dtDemColaborador` date NOT NULL,
+  `nrColaborador` varchar(20) NOT NULL,
+  `emailColaborador` varchar(150) NOT NULL,
+  `idCargo` int(10) NOT NULL,
+  `statusColaborador` char(1) NOT NULL default 'A',
+  `dtCadColaborador` date NOT NULL,
+  `dtAltColaborador` datetime NOT NULL,
+  `idUnidade` int(10) NOT NULL,
+  `idUsuCadColaborador` int(10) NOT NULL,
+  PRIMARY KEY  (`idColaborador`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tabela de Colaboradores' AUTO_INCREMENT=2 ;
+
+-- 
+-- Extraindo dados da tabela `colaborador`
+-- 
+
+INSERT INTO `colaborador` VALUES (1, 'Daniel Cembranelli', '2007-01-29', '0000-00-00', '10', 'daniel@crescem.com.br', 1, 'A', '2007-01-29', '0000-00-00 00:00:00', 1, 1);
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `form_ppr_004`
+-- 
+
+CREATE TABLE `form_ppr_004` (
+  `idForm` int(10) NOT NULL auto_increment,
+  `idFormulario` int(10) NOT NULL,
+  `tipoForm` char(1) NOT NULL,
+  `idUnidade` int(10) NOT NULL,
+  `dtForm` date NOT NULL,
+  `idUsuario` int(10) NOT NULL,
+  `R01` int(2) unsigned zerofill NOT NULL,
+  `R02` int(2) unsigned zerofill NOT NULL,
+  `R03` int(2) unsigned zerofill NOT NULL,
+  `R04` int(2) unsigned zerofill NOT NULL,
+  `R05` int(2) unsigned zerofill NOT NULL,
+  `R06` int(2) unsigned zerofill NOT NULL,
+  `R07` int(2) unsigned zerofill NOT NULL,
+  `R08` int(2) unsigned zerofill NOT NULL,
+  `R09` int(2) unsigned zerofill NOT NULL,
+  `R10` int(2) unsigned zerofill NOT NULL,
+  `R11` int(2) unsigned zerofill NOT NULL,
+  `R12` int(2) unsigned zerofill NOT NULL,
+  `R13` int(2) unsigned zerofill NOT NULL,
+  `R14` int(2) unsigned zerofill NOT NULL,
+  `R15` int(2) unsigned zerofill NOT NULL,
+  `R16` int(2) unsigned zerofill NOT NULL,
+  `R17` int(2) unsigned zerofill NOT NULL,
+  `R18` int(2) unsigned zerofill NOT NULL,
+  `R19` int(2) unsigned zerofill NOT NULL,
+  `R20` int(2) unsigned zerofill NOT NULL,
+  `statusForm` char(1) NOT NULL default 'A',
+  `dtCadForm` datetime NOT NULL,
+  `idUsuCadForm` int(10) NOT NULL,
+  `dtProForm` datetime NOT NULL,
+  `idUsuProForm` int(10) NOT NULL,
+  PRIMARY KEY  (`idForm`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Respostas PPR 004' AUTO_INCREMENT=3 ;
+
+-- 
+-- Extraindo dados da tabela `form_ppr_004`
+-- 
+
+INSERT INTO `form_ppr_004` VALUES (2, 1, 'P', 0, '2007-01-26', 2, 10, 09, 08, 07, 06, 05, 06, 07, 08, 09, 10, 09, 08, 07, 06, 05, 06, 07, 08, 09, 'A', '2007-01-28 16:28:31', 1, '0000-00-00 00:00:00', 0);
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `formulario`
+-- 
+
+CREATE TABLE `formulario` (
+  `idFormulario` int(10) NOT NULL auto_increment,
+  `titFormulario` varchar(60) NOT NULL,
+  `tipFormulario` varchar(30) NOT NULL,
+  `arqFormulario` varchar(50) NOT NULL,
+  `verFormulario` varchar(10) NOT NULL,
+  PRIMARY KEY  (`idFormulario`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Relação de Formularios' AUTO_INCREMENT=5 ;
+
+-- 
+-- Extraindo dados da tabela `formulario`
+-- 
+
+INSERT INTO `formulario` VALUES (1, 'Auditoria de Apresentação dos Produtos', 'Mensal', 'form_ppr_004', '6');
+INSERT INTO `formulario` VALUES (2, 'Avaliação Equipe Feliz', 'Mensal', 'form_ppr_013', '6');
+INSERT INTO `formulario` VALUES (3, 'Auditoria de Ambiente - Restaurante', 'Semestral', 'form_ppr_007', '6');
+INSERT INTO `formulario` VALUES (4, 'Auditoria do Plano de Vôo', 'Semestral', 'form_ppr_006', '6');
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `grupo`
+-- 
+
+CREATE TABLE `grupo` (
+  `idGrupo` int(10) NOT NULL auto_increment,
+  `titGrupo` varchar(50) NOT NULL,
+  PRIMARY KEY  (`idGrupo`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tabela de Grupo' AUTO_INCREMENT=3 ;
+
+-- 
+-- Extraindo dados da tabela `grupo`
+-- 
+
+INSERT INTO `grupo` VALUES (1, 'Administrador');
+INSERT INTO `grupo` VALUES (2, 'Auditor');
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `repositorio`
+-- 
+
+CREATE TABLE `repositorio` (
+  `idRep` int(10) NOT NULL auto_increment,
+  `titRep` varchar(60) NOT NULL,
+  `arqRep` varchar(150) NOT NULL,
+  `dtRep` date NOT NULL,
+  `idCatRep` int(10) NOT NULL,
+  PRIMARY KEY  (`idRep`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tabela de Repositorio' AUTO_INCREMENT=1 ;
+
+-- 
+-- Extraindo dados da tabela `repositorio`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `repositorio_cat`
+-- 
+
+CREATE TABLE `repositorio_cat` (
+  `idCatRep` int(10) NOT NULL auto_increment,
+  `titCatRep` varchar(60) NOT NULL,
+  PRIMARY KEY  (`idCatRep`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tabela de Categoria de Repositorio' AUTO_INCREMENT=3 ;
+
+-- 
+-- Extraindo dados da tabela `repositorio_cat`
+-- 
+
+INSERT INTO `repositorio_cat` VALUES (1, 'Formulários');
+INSERT INTO `repositorio_cat` VALUES (2, 'Metas');
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `unidades`
+-- 
+
+CREATE TABLE `unidades` (
+  `idUnidade` int(10) NOT NULL auto_increment,
+  `nomeUnidade` varchar(60) NOT NULL,
+  `cidadeUnidade` varchar(50) NOT NULL,
+  `telefoneUnidade` varchar(10) NOT NULL,
+  `emailUnidade` varchar(150) NOT NULL,
+  `dtCadUnidade` date NOT NULL,
+  `dtAltUnidade` date NOT NULL,
+  PRIMARY KEY  (`idUnidade`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tabela de Unidades' AUTO_INCREMENT=3 ;
+
+-- 
+-- Extraindo dados da tabela `unidades`
+-- 
+
+INSERT INTO `unidades` VALUES (1, 'Teste 1', 'Santo André', '', '', '2007-01-27', '0000-00-00');
+INSERT INTO `unidades` VALUES (2, 'Teste 2', 'São Paulo', '', '', '2007-01-27', '0000-00-00');
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `unidades_usuario`
+-- 
+
+CREATE TABLE `unidades_usuario` (
+  `idUnUs` int(10) NOT NULL auto_increment,
+  `idUnidade` int(10) NOT NULL,
+  `idUsuario` int(10) NOT NULL,
+  PRIMARY KEY  (`idUnUs`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tabela de Unidades por Usuário' AUTO_INCREMENT=2 ;
+
+-- 
+-- Extraindo dados da tabela `unidades_usuario`
+-- 
+
+INSERT INTO `unidades_usuario` VALUES (1, 2, 1);
+
+-- --------------------------------------------------------
+
+-- 
+-- Estrutura da tabela `usuarios`
+-- 
+
+CREATE TABLE `usuarios` (
+  `idUsuario` int(10) NOT NULL auto_increment,
+  `loginUsuario` varchar(20) NOT NULL,
+  `senhaUsuario` varchar(15) NOT NULL,
+  `nomeUsuario` varchar(30) NOT NULL,
+  `emailUsuario` varchar(150) NOT NULL,
+  `telefoneUsuario` varchar(10) NOT NULL,
+  `dtCadUsuario` date NOT NULL,
+  `dtAltUsuario` date NOT NULL,
+  `dtLogUsuario` datetime NOT NULL,
+  `nrLogUsuario` int(11) NOT NULL default '0',
+  `statusUsuario` char(1) NOT NULL default 'A',
+  `grupoUsuario` int(10) NOT NULL,
+  PRIMARY KEY  (`idUsuario`),
+  UNIQUE KEY `loginUsuario` (`loginUsuario`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Tabela de Usuarios do Sistema' AUTO_INCREMENT=4 ;
+
+-- 
+-- Extraindo dados da tabela `usuarios`
+-- 
+
+INSERT INTO `usuarios` VALUES (1, 'daniel', 'dlcb', 'Daniel Cembranelli', 'daniel@cembranelli.com.br', '1144363673', '2007-01-27', '2007-01-27', '2007-01-29 20:20:38', 8, 'A', 1);
+INSERT INTO `usuarios` VALUES (2, 'cris', '1234', 'Cristina', 'cristina@yod.com.br', '1100000000', '2007-01-27', '0000-00-00', '2007-01-27 23:04:17', 1, 'A', 2);
+INSERT INTO `usuarios` VALUES (3, 'gilberto', 'renova', 'Gilberto', 'gilberto@yod.com.br', '1144363673', '2007-01-28', '0000-00-00', '0000-00-00 00:00:00', 0, 'A', 2);

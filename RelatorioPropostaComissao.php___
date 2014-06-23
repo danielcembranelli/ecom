@@ -1,0 +1,170 @@
+<? include("Config.php");?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" media="all" href="staff/index.css" />
+<title>Relatório de Familia</title>
+<script type="text/javascript" src="jquery-autocomplete/lib/jquery.js"></script>
+<script type="text/javascript" src="libEcom.js"></script>
+<script type="text/javascript" src="js/meiomask.js"></script>
+<script type="text/javascript" src="js/mascara_input.js"></script>
+</head>
+<body>
+<?
+$a=0;
+?>
+<form action="RelatorioPropostaComissao.php" method="post">
+  <table width="500" border="0">
+    <tr>
+      <th scope="col">Data Inicial</th>
+      <th scope="col">Data Final</th>
+      <th scope="col">Vendedor</th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+    <tr>
+      <td align="center"><input name="DTI" type="text" id="DTI" value="<?=$_POST[DTI]?>" maxlength="10" class="quicksearch" alt="data2"/></td>
+      <td align="center"><input name="DTF" type="text" id="DTF" value="<?=$_POST[DTF]?>" maxlength="10" class="quicksearch" alt="data2" /></td>
+      <td><select name="idVendedor" id="idVendedor" class="quicksearch">
+<option value="">Selecione o vendedor</option>
+<option value="0" <? if($_SESSION[buscaproposta][idVendedor]=='0'){?>selected="selected"<? } ?>>Todos</option>
+<?
+$Sql = mysql_query("Select id, nome from login where (statusUsuario='A' And tipoUsuario='A') or (statusUsuario='A' And tipoUsuario='C') or (statusUsuario='A' And tipoUsuario='V') or (statusUsuario='A' And tipoUsuario='G')  order by nome") or die (mysql_error());
+while ($dom = mysql_fetch_array($Sql)){
+	?>
+  <option value="<?=$dom[id]?>" <? if($_POST[idVendedor]==$dom[id]){?>selected="selected"<? } ?>><?=$dom[nome]?></option>
+<? } ?>
+</select></td>
+      <td align="center"><input name="button" type="submit" class="yellowbutton" id="button" value="Filtrar" /></td>
+    </tr>
+  </table>
+</form>
+<? if($_POST[DTI]!='' && $_POST[DTF]!=''){?>
+<h2>Relatório de Comissão - <?=$_POST[DTI]?> - <?=$_POST[DTF]?></h2>
+<table>
+<thead>
+<tr>
+<td rowspan="2" colspan="2" align="center" nowrap class="tabletitlerow">&nbsp;Proposta</td>
+<td rowspan="2" align="center" nowrap class="tabletitlerow">&nbsp;Nome</td>
+<td rowspan="2" align="center" nowrap class="tabletitlerow">&nbsp;Marca</td>
+<td rowspan="2" align="center" nowrap class="tabletitlerow">&nbsp;Modelo</td>
+<td rowspan="2" align="center" nowrap class="tabletitlerow">&nbsp;Categoria</td>
+<td width="2%" rowspan="2" align="center" nowrap class="tabletitlerow">&nbsp;Horas</td>
+<td width="2%" rowspan="2" align="center" nowrap class="tabletitlerow">&nbsp;%</td>
+<td colspan="2" align="center" nowrap class="tabletitlerow">&nbsp;Equipamento</td>
+<td class="tabletitlerow" align="center" nowrap>&nbsp;Seguro</td>
+<td class="tabletitlerow" colspan="2" align="center" nowrap>&nbsp;Frete</td>
+</tr>
+
+<tr class="tabletitlerow">
+  <td align="center">Comiss&atilde;o</td>
+  <td colspan="" align="center">Valor</td>
+  <td colspan="" align="center">Di&aacute;rio</td>
+  <td colspan="" align="center">Mobilização</td>
+  <td colspan="" align="center">Desmobilização</td>
+</tr>
+
+</thead>
+<tbody>
+<? 
+
+$TEQPTO=0;
+$TVALOR=0;
+$TSEGURO=0;
+$TCOMBUSTIVEL=0;
+$TOPERADOR=0;
+$TMOBILIZACAO=0;
+$TDESMOBILIZACAO=0;
+
+$MTEQPTO=0;
+$MTVALOR=0;
+$MTSEGURO=0;
+$MTCOMBUSTIVEL=0;
+$MTOPERADOR=0;
+
+$sqlUsuario = mysql_query("SELECT pr.valor1Preco, pr.valor2Preco, pr.valor3Preco, co.pcpadraoCt, co.pcmaiorCt, co.pinf1Ct, co.pinf2Ct, co.pcmedioCt, co.pmenorCt, co.pcmenorCt, c.Cli_Fantasia, pe.fretedPe, p.dtiniProposta, p.dtprevisaoProposta, L.nomeLegenda as nome1, L2.nomeLegenda as marca, L1.nomeLegenda as categoria, L3.nomeLegenda as modelo, p.idProposta, pe.operadorPe, pe.valoroperadorPe, pe.precoPe, pe.combustivelPe, pe.valorcombustivelPe, pe.seguroPe, pe.valorseguroPe, pe.fretePe, pe.qtdaPe FROM proposta_equipamento pe inner join proposta p on (p.idProposta=pe.idProposta) left join familia A on (A.id=pe.idFamilia) LEFT JOIN legendas L ON ( A.nomeid = L.idLegenda) LEFT JOIN legendas L1 ON ( A.categoriaid = L1.idLegenda) LEFT JOIN legendas L2 ON ( A.marcaid = L2.idLegenda) LEFT JOIN legendas L3 ON ( A.modeloid = L3.idLegenda) left join obra o on (o.idProposta=pe.idProposta) left join clientes c on (p.idCliente=c.Cli_ID) left join login lo on (lo.id=p.idVendedor) left join comissao_tipo co on (co.idCt=lo.idCt) left join preco pr on (pr.idFamilia=A.id) where (p.statusProposta='C' And o.status='a' And pe.statusPe='A' And p.idVendedor='".$_POST[idVendedor]."') or (p.statusProposta='F' And o.status='a' And p.dtprevisaoProposta>='".dataSql($_POST[DTI])."' And pe.statusPe='A' And p.idVendedor='".$_POST[idVendedor]."')") or die ("Could not connect to database: ".mysql_error());
+while ($sU = mysql_fetch_array($sqlUsuario)){
+	
+
+
+$sqlPreco = mysql_query("SELECT p.idProposta, c.horaMaquina, c.horaOperador FROM proposta_clausula p inner join clausulas c on (c.idClausula=p.idClausula) where c.grupoClausula='25' And p.idProposta = '".$sU[idProposta]."' Limit 1") or die ("PRECO: ".mysql_error());
+$sP = mysql_fetch_array($sqlPreco);
+mysql_free_result($sqlPreco);
+
+//$sqlFamilia = mysql_query("SELECT o.valorOt, f.valorbemFamilia, f.seguroFamilia FROM familia f left join operadortipo o on(o.idOt=f.idOt) where f.id='".$sU[id]."' Limit 1") or die ("FAMILIA: ".mysql_error());
+//$sF = mysql_fetch_array($sqlFamilia);
+//mysql_free_result($sqlFamilia);
+
+$Dias = countIntervaloDias($sU[dtiniProposta],$sU[dtprevisaoProposta],dataSql($_POST[DTI]),dataSql($_POST[DTF]));
+if($Dias>0){
+$TEQPTO+=$sU[qtdaPe];
+$TVALOR+=($sU[precoPe]*$sP[horaMaquina])*$sU[qtdaPe];
+$TSEGURO+=($sU[valorseguroPe]*$sP[horaMaquina])*$sU[qtdaPe];
+$TCOMBUSTIVEL+=($sU[valorcombustivelPe]*$sP[horaMaquina])*$sU[qtdaPe];
+$TOPERADOR+=($sU[valoroperadorPe]*$sP[horaOperador])*$sU[qtdaPe];
+$TMOBILIZACAO=$sU[fretePe];
+$TDESMOBILIZACAO=$sU[fretedPe];
+
+
+$MTEQPTO+=$sU[qtdaPe];
+$MTVALOR+=(($sU[precoPe]*$sP[horaMaquina])*$sU[qtdaPe])*$Dias;
+$MTSEGURO+=(($sU[valorseguroPe]*$sP[horaMaquina])*$sU[qtdaPe])*$Dias;
+$MTCOMBUSTIVEL+=(($sU[valorcombustivelPe]*$sP[horaMaquina])*$sU[qtdaPe])*$Dias;
+$MTOPERADOR+=(($sU[valoroperadorPe]*$sP[horaOperador])*$sU[qtdaPe])*$Dias;
+for($q=1;$q<=$sU[qtdaPe];$q++){
+$cor = ($coralternada++ %2 ? "row2" : "row1");  
+$a++;
+?>
+
+<tr class="<?=$cor?>">
+<td colspan="" width="" align="center" valign=""><?=$sU[id];?>&nbsp;<?=$sU[idProposta];?></td>
+<td colspan="" width="" align="center" valign=""><?=$sU[id];?>&nbsp;<?=$sU[Cli_Fantasia];?></td>
+<td colspan="" width="" align="center" valign=""><?=$sU[id];?>&nbsp;<?=$sU[nome1];?></td>
+<td colspan="" align="center">&nbsp;<?=$sU[marca];?></td>
+<td colspan="" align="center">&nbsp;<?=$sU[modelo];?></td>
+<td colspan="" align="center"><?=$sU[categoria];?></td>
+<td colspan="" align="center"><input type="text" size="4" style="text-align:center" tabindex="<?=$a?>" produto="<?=$a?>" id="q<?=$a?>" onblur="AtualizaSubtotal('<?=$a?>','S')" /></td>
+<td colspan="" align="center"><? //$Dias;?>
+<?
+$c=$sU[pcpadraoCt];
+if($sU[valor1Preco]<$sU[precoPe]){
+	$c = $sU[pcmaiorCt];
+}
+if($sU[valor3Preco]>$sU[precoPe]){
+	 $pDesconto = (100-(100/$sU[valor3Preco])*$sU[precoPe]);
+	 if($pDesconto>$sU[pmenorCt]){
+		$c = $sU[pcmenorCt]; 
+	 } else {
+		 $c = $sU[pcmedioCt];
+	 }
+}
+echo number_format($c,1,',','');;
+?>
+
+</td>
+<td align="center"><input name="vlProduto[]" class="<?=$cor?>" style="border:0; text-align:center" readonly="readonly" value="<?=number_format(($sU[precoPe]/100)*$c, 2,'.', '')?>" type="text" id="vl<?=$a?>" size="8" /></td>
+<td align="center">
+<input name="textfield4" caixa="SUBTOTAL" class="<?=$cor?>" style="border:0; text-align:center" readonly="readonly" id="st<?=$a?>" value="" type="text" size="12" />
+</td>
+<td colspan="" align="center"><? if($sU[seguroPe]=='S'){?>R$ <?=number_format(($sU[valorseguroPe]),2,',','.');?><? } else {?> - X -<? }?></td>
+<td colspan="" align="center"><? if($sU[dtiniProposta]>=dataSql($_POST[DTI])){?>R$ <?=number_format($sU[fretePe],2,',','.');?><? } else {?> - X -<? }?></td>
+<td colspan="" align="center"><? if($sU[dtprevisaoProposta]<=dataSql($_POST[DTF])){?>R$ <?=number_format($sU[fretedPe],2,',','.');?><? } else {?> - X -<? }?></td>
+</tr>
+<? } }	} $cor = ($coralternada++ %2 ? "row2" : "row1");  ?>
+
+</tbody>
+<tfoot>
+<tr class="<?=$cor?>">
+<td colspan="4" width="" align="left" valign=""></td>
+<td width="" align="left" valign=""><strong>Total</strong></td>
+<td colspan="" align="center"><strong><?=$TEQPTO;?></strong></td>
+<td colspan="" align="center"><strong><!--R$ <?=number_format($TVALOR, 2, ',', '.')?></strong>--></td>
+<td colspan="" align="center"><strong><!--R$ <?=number_format($TSEGURO,2,',','.');?></strong>--></td>
+<td colspan="2" align="center"><strong> <input name="valortotal" type="text" value="<?=number_format($Cesta[TOTAL],2,',','.')?>" id="total" size="12" style="background:none; border:0px; font-size:20px; color:#000066;" /></strong></td>
+<td colspan="" align="center"><strong><!--R$ <?=number_format($TOPERADOR,2,',','.');?>--></strong></td>
+</tr>
+</tfoot>
+</table>
+<? } ?>
+</body>
+</html>

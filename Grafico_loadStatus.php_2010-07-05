@@ -1,0 +1,37 @@
+<?php
+include("config.php");
+// generate some random data
+srand((double)microtime()*1000000);
+
+$data = array();
+$links = array();
+$label = array();
+$Sql = mysql_query("SELECT E.idTp, tp.nomeTp, E.ativo, D.corStatus, D.labelDesc, count(*) as valor, (100/(Select count(*) from equipamento where excluido='n'))*count(*) as total FROM mapaes.equipamento E inner join mapaes.desc_status D on (D.ativoDesc=E.ativo) left join tipoproprietario tp on (E.idTp=tp.idTp) where excluido='n' group by ativo, idTp order by ativo desc");
+
+while ($sq = mysql_fetch_array($Sql)){
+	$label[] = $sq[labelDesc].'('.$sq[nomeTp].')';
+    $data[] = $sq[total];
+	$cor[] = $sq[corStatus];
+    $links[] = "javascript:ListAtivo('$sq[ativo]')";
+}
+mysql_free_result($Sql);
+include_once( 'open-flash-chart/ofc-library/open-flash-chart.php' );
+$g = new graph();
+
+$g->bg_colour = '#FFFFFF';
+$g->pie(60,'#FFFFFF','{display:none;}',false,1);
+//
+// pass in two arrays, one of data, the other data labels
+//
+$g->pie_values( $data, $label, $links );
+//
+// Colours for each slice, in this case some of the colours
+// will be re-used (3 colurs for 5 slices means the last two
+// slices will have colours colour[0] and colour[1]):
+//
+$g->pie_slice_colours($cor);
+//$g->pie_slice_colours( array('#d01f3c','#d01f3c','#d01f3c','#C79810','#C79810','#C79810','#009661','#009661','#009661','#20558a','#20558a','#356aa0','#356aa0','#356aa0') );
+$g->set_tool_tip( 'Frota em #x_label#<br>Qtde: #val#%' );
+
+echo $g->render();
+?>

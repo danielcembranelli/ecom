@@ -1,0 +1,181 @@
+<script type="text/javascript"> 
+function ConfirmaDel(valor)
+{
+var r=confirm("Você confima a exclusão?")
+if (r==true)
+  {
+	window.location.replace("index.php?_m=livesupport&_a=managerCliente&step=3&id="+valor)
+  }
+}
+</script>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								  <tr height="8">
+					<td><img src="themes/admin_default/space.gif" height="8" width="1" border="0" /></td>
+				  </tr>
+					<tr>
+						<td width="5" valign="middle" align="left"><img src="themes/admin_default/doublearrowsnav.gif"></td>
+						<td width="100%"><span class="smalltext">&nbsp;<a href="index.php?_m=livesupport&_a=managerCliente" title="Manager Cliente">Manager Cliente</a></span></td>
+					</tr>
+					<tr height="4">
+						<td colspan="2"><img src="themes/admin_default/space.gif" height="4" width="1"></td>
+					</tr>
+
+					<tr height="1">
+						<td colspan="2" bgcolor="#CCCCCC"><img src="themes/admin_default/space.gif" height="1" width="1"></td>
+					</tr>
+					<tr height="4">
+						<td colspan="2"><img src="themes/admin_default/space.gif" height="4" width="1"></td>
+					</tr>
+
+					<tr>
+						<td colspan="2"><span class="smalltext"></span></td>
+					</tr>
+
+					<tr height="4">
+						<td colspan="2"><img src="themes/admin_default/space.gif" height="4" width="1"></td>
+					</tr>
+										<tr>
+						<td colspan="2">
+<? if($_POST[step]=='1'){
+$Data=date("Y-m-d");
+$obsCliente=nl2br($_POST[obsCliente]);
+$sqlIncluir = mysql_query("Insert into clientes (`Cli_Fantasia`,`Cli_Nome`, `Cli_CGC`, `Cli_Inscricao`, `Cli_Contato`, `Cli_Endereco`, `Cli_Numero`, `Cli_Cidade`, `Cli_Bairro`, `Cli_UF`, `Cli_Pais`, `Cli_Fone1`, `Cli_Fone2`, `Cli_Fone3`, `Cli_Fax1`, `Cli_Fax2`, `Cli_Fax3`, `Cli_EMail`, `Cli_URL`, `Cli_EndCob`, `Cli_CidCob`, `Cli_BaiCob`, `Cli_CepCob`, `Cli_UFCob`, `Cli_Historico`, `idVendedor`,`Cli_DDD1`,`Cli_DDD2`,`Cli_DDD3`, `dtcadCli`) values ('$_POST[Cli_Fantasia]','$_POST[Cli_Nome]', '$_POST[Cli_CGC]', '$_POST[Cli_Inscricao]', '$_POST[Cli_Contato]', '$_POST[Cli_Endereco]', '$_POST[Cli_Numero]', '$_POST[Cli_Cidade]',  '$_POST[Cli_Bairro]', '$_POST[Cli_UF]', '$_POST[Cli_Pais]', '$_POST[Cli_Fone1]', '$_POST[Cli_Fone2]', '$_POST[Cli_Fone3]', '$_POST[Cli_Fax1]', '$_POST[Cli_Fax2]', '$_POST[Cli_Fax3]', '$_POST[Cli_EMail]', '$_POST[CliURL]', '$_POST[Cli_EndCob]', '$_POST[Cli_CidCob]', '$_POST[Cli_BaiCob]', '$_POST[CliCepCob]', '$_POST[Cli_UFCob]', '$obsCliente', '$_POST[idVendedor]', '$_POST[dddtelefone1]', '$_POST[dddtelefone2]', '$_POST[dddtelefone3]',NOW())") or die (mysql_error());
+if($sqlIncluir){
+?>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%" class="tborder" style="">
+<tbody><tr class="row2"><td>
+
+<table border="0" cellpadding="3" cellspacing="1" width="100%">
+<tr><td width="16" align="left" valign="middle"><img src="themes/admin_default/icon_info.gif" border="0" /></td><td align="left"><span class="smalltext">Cliente "<?=$_POST[Cli_Fantasia]?>" Cadastrada com Sucesso</span></td></tr></table></td></tr></tbody></table><BR />
+<? }
+} ?>
+
+
+
+<? if($_POST[step]=='2'){
+$Data=date("Y-m-d");
+$obsCliente=nl2br($_POST[obsCliente]);
+$sqlIncluir = mysql_query("Update clientes set `Cli_Fantasia`='$_POST[Cli_Fantasia]',`Cli_Nome`='$_POST[Cli_Nome]', `Cli_CGC`='$_POST[Cli_CGC]', `Cli_Inscricao`='$_POST[Cli_Inscricao]', `Cli_Contato`='$_POST[Cli_Contato]', `Cli_Endereco`='$_POST[Cli_Endereco]', `Cli_Numero`='$_POST[Cli_Numero]', `Cli_Cidade`='$_POST[Cli_Cidade]', `Cli_Bairro`='$_POST[Cli_Bairro]', `Cli_UF`='$_POST[Cli_UF]', `Cli_Pais`='$_POST[Cli_Pais]', `Cli_Fone1`='$_POST[Cli_Fone1]', `Cli_Fone2`='$_POST[Cli_Fone2]', `Cli_Fone3`='$_POST[Cli_Fone3]', `Cli_Fax1`='$_POST[Cli_Fax1]', `Cli_Fax2`='$_POST[Cli_Fax2]', `Cli_Fax3`='$_POST[Cli_Fax3]', `Cli_EMail`='$_POST[Cli_EMail]', `Cli_URL`='$_POST[CliURL]', `Cli_EndCob`='$_POST[Cli_EndCob]', `Cli_CidCob`='$_POST[Cli_CidCob]', `Cli_BaiCob`='$_POST[Cli_BaiCob]', `Cli_CepCob`='$_POST[CliCepCob]', `Cli_UFCob`='$_POST[Cli_UFCob]', `Cli_Historico`='$obsCliente', `idVendedor`='$_POST[idVendedor]', `dtaltCli`=NOW() where Cli_ID = '$_POST[id]' Limit 1") or die (mysql_error());
+if($sqlIncluir){
+?>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%" class="tborder" style="">
+<tbody><tr class="row2"><td>
+
+<table border="0" cellpadding="3" cellspacing="1" width="100%">
+<tr><td width="16" align="left" valign="middle"><img src="themes/admin_default/icon_info.gif" border="0" /></td><td align="left"><span class="smalltext">Cliente "<?=$_POST[Cli_Fantasia]?>" Editado com Sucesso</span></td></tr></table></td></tr></tbody></table><BR />
+<? }
+} ?>
+
+<? if($_REQUEST[step]=='3'){
+$Data=date("Y-m-d");
+$obsCliente=nl2br($_POST[obsCliente]);
+$sqlIncluir = mysql_query("Update clientes set `Cli_Status`='E' where Cli_ID = '$_REQUEST[id]' Limit 1") or die (mysql_error());
+if($sqlIncluir){
+?>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%" class="tborder" style="">
+<tbody><tr class="row2"><td>
+
+<table border="0" cellpadding="3" cellspacing="1" width="100%">
+<tr><td width="16" align="left" valign="middle"><img src="themes/admin_default/icon_info.gif" border="0" /></td><td align="left"><span class="smalltext">Cliente "<?=$_POST[Cli_Fantasia]?>" Editado com Sucesso</span></td></tr></table></td></tr></tbody></table><BR />
+<? }
+} ?>
+
+						<form name="users" id="users" action="index.php" method="POST">
+                        
+
+<? 
+$Sql = "SELECT A.Cli_ID, A.Cli_Fantasia, Cli_Nome, A.Cli_CGC, A.Cli_Contato, A.Cli_Fone1 FROM clientes A ";
+
+if($_POST[quicksearch]!=''){
+$Sql.="where (Cli_Status='A' And Cli_Fantasia Like '%".$_POST[quicksearch]."%') or (Cli_Status='A' And Cli_Nome Like '%".$_POST[quicksearch]."%') or (Cli_Status='A' And Cli_CGC Like '%".$_POST[quicksearch]."%')";
+}
+
+//if($_POST[quicksearch]!='' && $dl[tipoUsuario]=='V'){
+//$Sql.="where (Cli_Status='A' And Cli_Fantasia Like '%".$_POST[quicksearch]."%' And idVendedor='".$dl[id]."') or (Cli_Status='A' And Cli_Nome Like '%".$_POST[quicksearch]."%' And idVendedor='".$dl[id]."') or (Cli_Status='A' And Cli_CGC Like '%".$_POST[quicksearch]."%' And idVendedor='".$dl[id]."')";
+//}
+
+//if($dl[tipoUsuario]=='V' && $_POST[quicksearch]==''){
+//	$Sql.= "where idVendedor='".$dl[id]."' ";
+//}
+
+$Sql.="ORDER BY Cli_Fantasia Limit 100";
+//echo $Sql;
+$sqlUsuario = mysql_query($Sql) or die ("Could not connect to database: ".mysql_error());
+?>
+                        
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr><td><table width="100%"  border="0" cellspacing="0" cellpadding="0"><tr valign="top"><td align="left"><table border="0" cellpadding="0" cellspacing="1" class="tborder"><tr><td class="highlightpage">Página 1 de 1</td>
+ <td class='navpageselected'><a href='index.php?_m=form&_a=manageusers&offset=0' title='Page 1 of 2'>1</a></td>
+<td class='navpage'><a href='index.php?_m=form&_a=manageusers&offset=100' title='Page 2 of 2'>2</a></td>
+<td class='navpage'><a href='index.php?_m=form&_a=manageusers&offset=100'>&gt;</a></td>
+</tr></table></td><td width="100%" align="right" valign="middle" width="1"><input type="text" name="quicksearch" class="quicksearch" value="<?=$_POST[quicksearch]?>" /></td><td width="1"><img src="themes/admin_default/space.gif" width="4" height="1" /></td><td align="right" width="1"><table border="0" cellpadding="0" cellspacing="1" class="tborder"><tr><td class="navpageselected" nowrap><a onclick="javascript:document.users.submit();" href="#" title="Quick Search">Pesquisar</a></td>
+
+<!--<td class="navpageselected" nowrap><a onclick="javascript:displayGridTabData('users', false);hideTabOn('gridoptusers', 'massaction');" href="#" title="Options">Options</a></td>-->
+</tr></table></td></tr></table></tr></td>
+<tr><td><img src="themes/admin_default/space.gif" width="1" height="6" /></tr></td>
+<tr><td>
+
+<table cellspacing="0" cellpadding="0" border="0" width="100%" style="border-collapse: collapse;width: 100%; height: 100%;DISPLAY: none;" id="gridtableoptusers"><tr style="height: 1em"><td align="left"><div id="gridoptusers"><ul id="tab"><li><a class="currenttab" href="#" onClick="this.blur(); return switchGridTab('massaction', 'gridoptions')" id="massaction" title="Mass Action">Mass Action</a></li><li><a href="#" onClick="this.blur(); return switchGridTab('search', 'gridoptions')" id="search" title="Advanced Search">Advanced Search</a></li><li><a href="#" onClick="this.blur(); return switchGridTab('settings', 'gridoptions');" id="settings" title="Settings">Settings</a></li></ul></div></td></tr>
+<tr style="height: 1em"><td align="left"><div id="tab_massaction" style="DISPLAY: none;" class="tabcontent"><table border="0" cellpadding="3" cellspacing="1" width="100%" class="tborder"><tr class="row1"><td align="left" width="60">Action: </td><td align="left"><select name="mass_action" onChange="javascript:return doFormConfirm('Are you sure you wish to continue?', this);" class="swiftselect"><option name="firstselect" value="">- Select -</option>
+<option value="f2a6c498fb90ee345d997f888fce3b18">Delete</option>
+<option value="c4908aca0e352a94cb6207103087070a">Mark as Validated</option>
+<option value="6e1de310751f1262fffe196798e21a5d">Mark as Validation Pending</option>
+</select></td></tr></table><BR /> </div><div id="tab_search" style="DISPLAY: none;" class="tabcontent"><table border="0" cellpadding="3" cellspacing="1" class="tborder" width="100%"><tr class="row1"><td align="left" width="60">Query: </td><td align="left"><input type="text" name="search_query" class="swifttext" /></td></tr><tr class="row2"><td align="left" width="60">Field: </td><td align="left"><select name="search_field" class="swiftselect"><option value="0" selected>Full Name & Email</option>
+<option value="1">Full Name</option>
+<option value="2">Email</option>
+</select></td></tr><tr class="row1"><td align="left" colspan="2"><input type="submit" name="searchbutton" value="Search" class="yellowbuttonbig" /></td></tr></table><BR /> </div><div id="tab_settings" style="DISPLAY: none;" class="tabcontent"><table border="0" cellpadding="3" cellspacing="1" class="tborder" width="100%"><tr class="row1"><td align="left" width="120">Results Per Page: </td><td align="left"><input type="text" name="set_resultsperpage" value="100" class="swifttext" size="10" /></td></tr><tr class="row2"><td align="left" colspan="2"><input type="submit" name="searchbutton" value="Submit" class="yellowbuttonbig" /></td></tr></table><BR /> </div></td></tr></table><table cellpadding="0" cellspacing="0" border="0" width="100%" class="tborder" style="float: left; position: relative;">
+<thead>
+			<tr>
+			<td class="tcat" width="1" align="left" nowrap><img src="themes/admin_default/space.gif" width="4" height="21"></td>
+			<td class="tcat" width="100%" colspan="" align="left" nowrap>Lista de Clientes</td>
+			</tr>
+			</thead><tbody><tr><td class="contenttableborder" colspan="2"><table border="0" cellpadding="3" cellspacing="1" width="100%">
+<tr>
+<td class="tabletitlerow" width="" align="" nowrap>&nbsp;Nome&nbsp;<img src="themes/admin_default/sortasc.gif" border="0" /></a></td>
+<td class="tabletitlerow" width="80" align="center" nowrap>&nbsp;Razão Social</td>
+<td class="tabletitlerow" width="200" align="center" nowrap>&nbsp;CNPJ</td>
+<td class="tabletitlerow" width="150" align="center" nowrap>&nbsp;Contato</td>
+<td class="tabletitlerow" width="80" align="center" nowrap>&nbsp;Telefone</td>
+<? if($dl[tipoUsuario]=='C'){?><td class="tabletitlerow" width="10" align="center" nowrap>&nbsp;</td><? } ?>
+
+</tr>
+<?
+while ($sU = mysql_fetch_array($sqlUsuario)){
+$cor = ($coralternada++ %2 ? "row2" : "row1");  
+?>
+<tr id="trid1466" class="<?=$cor?>" onmouseover="showHighlight(this);" onmouseout="clearHighlight(this, '<?=$cor?>');">
+<td colspan="" width="150" align="" valign="">&nbsp;<a href="index.php?_m=livesupport&_a=editCliente&id=<?=$sU[Cli_ID]?>" title="Edit"><?=$sU[Cli_Fantasia]?></a></td>
+<td colspan="" width="150" align="center" valign=""><a href="index.php?_m=livesupport&_a=editCliente&id=<?=$sU[Cli_ID]?>" title="Edit"><?=$sU[Cli_Nome]?></a></td>
+<td colspan="" width="150" align="center" valign=""><?=$sU[Cli_CGC]?></td>
+<td colspan="" width="80" align="center" valign=""><?=$sU[Cli_Contato]?></td>
+<td colspan="" width="80" align="center" valign=""><?=$sU[Cli_Fone1]?></td>
+<? if($dl[tipoUsuario]=='C'){?>
+<td colspan="" width="" align="center" valign=""><a href="javascript:ConfirmaDel('<?=$sU[Cli_ID]?>');" title="Apagar"><img src="themes/admin_default/action_delete.gif" border="0"></a></td>
+<? } ?>
+</tr>
+<? } ?>
+
+</table>
+
+</td></tr></tbody></table>
+<tr><td><img src="themes/admin_default/space.gif" width="1" height="6" /></tr></td>
+<tr><td><table width="100%"  border="0" cellspacing="0" cellpadding="0" style="display:none"><tr valign="top"><td align="left"><table border="0" cellpadding="0" cellspacing="1" class="tborder"><tr><td class="highlightpage">Página 1 de 2</td>
+ <td class='navpageselected'><a href='index.php?_m=form&_a=manageusers&offset=0' title='Page 1 of 2'>1</a></td>
+<td class='navpage'><a href='index.php?_m=form&_a=manageusers&offset=100' title='Page 2 of 2'>2</a></td>
+<td class='navpage'><a href='index.php?_m=form&_a=manageusers&offset=100'>&gt;</a></td>
+</tr></table></td></tr></table></tr></td>
+</tr></td></table>
+<input type="hidden" name="_m" value="livesupport"/>
+<input type="hidden" name="_a" value="managerCliente"/>
+
+</form>
+</td>
+					</tr>
+										<tr height="4">
+						<td colspan="2"><img src="themes/admin_default/space.gif" height="4" width="1"></td>
+					</tr>
+									</table>
+

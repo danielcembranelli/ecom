@@ -1,0 +1,316 @@
+<?
+include("Verifica.php");
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>eCom :: Extranet</title>
+<style type="text/css">
+<!--
+.style1 {font-size: 18px}
+.style2 {font-size: 14px}
+-->
+</style>
+</head>
+<link rel="stylesheet" type="text/css" media="all" href="staff/index.css" />
+<script language="Javascript">
+var themepath = "themes/admin_default/";
+var swiftpath = "";
+var BLANK_IMAGE="themes/admin_default/space.gif";
+var swiftsessionid = "d36e1720d517163a6a2a9744dc7fe143";
+var swiftiswinapp = "0";
+var cparea = "admin";
+</script>
+<link rel="stylesheet" type="text/css" media="all" href="themes/admin_default/calendar-blue.css" title="winter" />
+<script type="text/javascript" src="js/PlanoDeAcao.js"></script>
+<script type="text/javascript" src="themes/admin_default/calendar.js"></script>
+<script type="text/javascript" src="themes/admin_default/lang/calendar-en-us.js"></script>
+<script type="text/javascript" src="themes/admin_default/calendar-setup.js"></script>
+<script type="text/javascript" src="includes/Spellcheck/spellChecker.js"></script>
+<script type="text/javascript" src="files/3ec0a57a0e43e8142b8bcf0793fc3ba9.js"></script>
+
+<script type="text/javascript" src="themes/admin_default/main.js"></script>
+<script type="text/javascript">
+</script>
+<script type="text/javascript" src="js/staffcpmenuclick.js"></script><script language="Javascript">
+//HTMLArea.loadPlugin("TableOperations");
+function loadAllData() { preloadMenuImages(); 			var irsField = browserObject("staffirs");
+		if (irsField)
+		{
+			window.$IRS = globalirs = new IRSAutoComplete(document.getElementById('staffirs'));
+		}
+	}
+</script>
+<script type="text/javascript" src="jquery-autocomplete/lib/jquery.js"></script>
+<script type='text/javascript' src='jquery-autocomplete/lib/jquery.bgiframe.min.js'></script>
+<script type='text/javascript' src='jquery-autocomplete/lib/jquery.ajaxQueue.js'></script>
+<script type='text/javascript' src='jquery-autocomplete/lib/thickbox-compressed.js'></script>
+<script type="text/javascript" src="jquery-autocomplete/lib/jquery.price_format.1.3.js"></script>
+<script type='text/javascript' src='jquery-autocomplete/jquery.autocomplete.js'></script>
+<script type="text/javascript">
+function chec(tabela,valor){
+	if(valor==true){
+	document.getElementById(tabela).style.display = 'block'
+	} else {
+	document.getElementById(tabela).style.display = 'none'
+	}
+}
+</script>		
+<?
+$sqlUsuario = mysql_query("Select DATE_FORMAT(c.Cli_Cadastro,'%d/%m/%Y %H:%i:%s') as dtcad1,DATE_FORMAT(c.dtcadCli,'%d/%m/%Y %H:%i:%s') as dtcad,DATE_FORMAT(c.dtaltCli,'%d/%m/%Y %H:%i:%s') as dtalt, c.* from clientes c where Cli_ID ='".$_REQUEST[idCliente]."' Limit 1") or die ("Could not connect to database: ".mysql_error());
+$sU = mysql_fetch_array($sqlUsuario);
+?>       		
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="79"><img src="images/logoEscad.jpg" width="79" height="122" /></td>
+    <td><div align="center"><span class="style1">Ficha do Cliente</span></div></td>
+    <td width="60"><a href="javascript:window.print();"><img src="images/print-icon.jpg" width="60" height="50" border="0" /></a></td>
+  </tr>
+</table>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+					<tr height="4">
+						<td width="105%"><img src="themes/admin_default/space.gif" height="4" width="1"></td>
+					</tr>
+										<tr>
+						<td>
+						
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="">
+<thead>
+<tr>
+  <td align="left" nowrap>&nbsp;</td>
+  <td class="tickettextred style2" colspan="" align="left" nowrap>&nbsp;</td>
+</tr>
+<tr>
+  <td align="left" nowrap>&nbsp;</td>
+  <td class="tickettextred style2" colspan="" align="left" nowrap>&nbsp;</td>
+</tr>
+<tr>
+<td width="1" align="left" nowrap><img src="themes/admin_default/space.gif" width="4" height="21"></td>
+<td class="tickettextred style2" width="100%" colspan="" align="left" nowrap>Detalhes do Cliente</td>
+</tr>
+</thead>
+<tbody><tr><td  colspan="2"><table border="0" cellpadding="3" cellspacing="1" width="100%">
+
+<tr title="" onmouseover="" onmouseout="" onclick="" id="" style="">
+<td align="left" valign="top" colspan="" width="100"><span class="tabletitle">CNPJ</span></td>
+<td align="left" valign="top" colspan=""><?=$sU[Cli_CGC]?></td>
+<td width="50%" align="left" valign="top"><span class="tabletitle">Observações</span></td>
+</tr>
+
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Nome</span></td>
+  <td align="left" valign="top"><?=$sU[Cli_Fantasia]?></td>
+  <td rowspan="9" align="left" valign="top"><?=$sU[Cli_Historico]?> </td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" id="" style="">
+<td align="left" valign="top" colspan=""><span class="tabletitle">Razão Social</span></td>
+<td align="left" valign="top"><?=$sU[Cli_Nome]?></td>
+</tr>
+
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">I.E.</span></td>
+  <td align="left" valign="top"><?=$sU[Cli_Inscricao]?></td>
+  </tr>
+
+<tr title="" onmouseover="" onmouseout="" onclick="" id="" style="">
+<td align="left" valign="top" colspan=""><span class="tabletitle">Contato</span></td>
+<td align="left" valign="top"><?=$sU[Cli_Contato]?></td>
+</tr>
+
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Endere&ccedil;o</span></td>
+  <td align="left" valign="top"><?=$sU[Cli_Endereco]?></td>
+  </tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Bairro</span></td>
+  <td align="left" valign="top"><?=$sU[Cli_Bairro]?></td>
+  </tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">CEP</span></td>
+  <td align="left" valign="top"><?=$sU[Cli_CEP]?></td>
+  </tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Cidade</span></td>
+  <td align="left" valign="top"><?=$sU[Cli_Cidade]?></td>
+  </tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Estado</span></td>
+  <td align="left" valign="top"><?=$sU[Cli_UF]?></td>
+  </tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Pais</span></td>
+  <td align="left" valign="top"><?=$sU[Cli_Pais]?></td>
+  <td align="left" valign="top"><span class="tabletitle">CPF</span></td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Telefone 1</span></td>
+  <td align="left" valign="top">(<?=$sU[Cli_DDD1]?>) <?=$sU[Cli_Fone1]?></td>
+  <td align="left" valign="top"><?=$sU[Cli_CPF]?></td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Telefone 2</span></td>
+  <td align="left" valign="top">
+        (<?=$sU[Cli_DDD2]?>) <?=$sU[Cli_Fone2]?></td>
+  <td align="left" valign="top"><span class="tabletitle">R.G.</span></td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Telefone 3</span></td>
+  <td align="left" valign="top">
+       (<?=$sU[Cli_DDD3]?>) <?=$sU[Cli_Fone3]?></td>
+  <td align="left" valign="top"><?=$sU[Cli_RG]?></td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Fax</span></td>
+  <td align="left" valign="top" colspan="2">(<?=$sU[Cli_DDD1]?>) <?=$sU[Cli_Fax1]?></td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">E-mail</span></td>
+  <td align="left" valign="top" colspan="2"><?=$sU[Cli_EMail]?></td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Website</span></td>
+  <td align="left" valign="top" colspan="2"><?=$sU[Cli_URL]?></td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" style="">
+  <td align="left" valign="top" colspan=""><span class="tabletitle">Status</span></td>
+  <td align="left" valign="top" colspan="2"><input name="statusCliente" <? if($_REQUEST[acao]!='editar'){?>readonly="readonly"<? }?> type="radio" id="radio" value="A" checked="checked" />
+    <label for="radio">Ativo
+    <input type="radio" name="statusCliente" id="radio2" <? if($_REQUEST[acao]!='editar'){?>readonly="readonly"<? }?> value="I" />
+    Inativo</label></td>
+</tr>
+
+<tr title="" onmouseover="" onmouseout="" onclick="" id="" style="">
+<td align="left" valign="top" colspan=""><span class="tabletitle">Classifica&ccedil;&atilde;o</span></td>
+<td align="left" valign="top" colspan="2"><select name="tipoCliente"  <? if($_REQUEST[acao]!='editar'){?>readonly="readonly"<? }?> id="tipoCliente">
+  <option value="O">&Oacute;timo</option>
+  <option value="R">Regular</option>
+  <option value="P">Problem&aacute;tico</option>
+</select></td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" id="" style="">
+<td align="left" valign="top" colspan=""><span class="tabletitle">Vendedor</span></td>
+<td align="left" valign="top" colspan="2"><select name="idVendedor" id="idVendedor" <? if($_REQUEST[acao]!='editar'){?>readonly="readonly"<? }?>>
+<option>Selecione o vendedor</option>
+
+<?
+$Sql = mysql_query("Select id, nome from login where (tipoUsuario='A') or (tipoUsuario='C') or (tipoUsuario='V')  order by nome") or die (mysql_error());
+while ($dom = mysql_fetch_array($Sql)){
+	?>
+  <option value="<?=$dom[id]?>" <? if($sU[idVendedor]==$dom[id]){?>selected="selected"<? } ?>><?=$dom[nome]?></option>
+<? } ?>
+</select></td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" id="" style="">
+<td align="left" valign="top" colspan=""><span class="tabletitle">Filial</span></td>
+<td align="left" valign="top" colspan="2"><select name="idFilial" id="idFilial">
+<option>Selecione a filial</option>
+<?
+$Sql = mysql_query("Select ID_PATIO, NOME_PATIO from patio order by NOME_PATIO") or die (mysql_error());
+while ($dom = mysql_fetch_array($Sql)){
+	?>
+  <option value="<?=$dom[ID_PATIO]?>"<? if($sU[idFilial]==$dom[ID_PATIO]){?>selected="selected"<? } ?>><?=$dom[NOME_PATIO]?></option>
+<? } ?>
+</select></td>
+</tr>
+<tr title="" onmouseover="" onmouseout="" onclick="" id="" style="">
+<td align="left" valign="top" colspan=""><span class="tabletitle">Dt Cadastro</span></td>
+<td align="left" valign="top" colspan="2"><? if($sU[dtcadCli]=='0000-00-00 00:00:00'){?><?=$sU[dtcad1]?>
+<? } else {?><?=$sU[dtcad]?><? } ?></td>
+</tr>
+<? if($sU[dtaltCli]!='0000-00-00 00:00:00'){?>
+<tr title="" onmouseover="" onmouseout="" onclick="" id="" style="">
+<td align="left" valign="top" colspan=""><span class="tabletitle">Dt Alteração</span></td>
+<td align="left" valign="top" colspan="2"><?=$sU[dtalt]?></td>
+</tr>
+<? } ?>
+</table></td></tr></tbody></table>
+<br />
+
+
+<table width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+    <td>
+
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="">
+    <thead>
+    <tr>
+    <td width="1" align="left" nowrap><img src="themes/admin_default/space.gif" width="4" height="21"></td>
+    <td width="100%" colspan="" align="left" nowrap class="tickettextred style2">Endere&ccedil;o de Cobran&ccedil;a</td>
+    </tr>
+    </thead>
+    <tbody><tr><td  colspan="2">
+    <table border="0" cellpadding="3" cellspacing="1" width="100%" id="Cobranca">
+    
+    <tr title="" onmouseover="" onmouseout="" onclick="" style="">
+      <td align="left" valign="top" colspan=""><span class="tabletitle">Endere&ccedil;o</span></td>
+      <td align="left" valign="top" colspan=""><?=$sU[Cli_EndEnt]?></td>
+    </tr>
+    <tr title="" onmouseover="" onmouseout="" onclick="" style="">
+      <td align="left" valign="top" colspan=""><span class="tabletitle">Bairro</span></td>
+      <td align="left" valign="top" colspan=""><?=$sU[Cli_BaiEnt]?></td>
+    </tr>
+    <tr title="" onmouseover="" onmouseout="" onclick="" style="">
+      <td align="left" valign="top" colspan=""><span class="tabletitle">CEP</span></td>
+      <td align="left" valign="top" colspan=""><?=$sU[Cli_CepEnt]?></td>
+    </tr>
+    <tr title="" onmouseover="" onmouseout="" onclick="" style="">
+      <td align="left" valign="top" colspan=""><span class="tabletitle">Cidade</span></td>
+      <td align="left" valign="top" colspan=""><?=$sU[Cli_CidEnt]?></td>
+    </tr>
+    <tr title="" onmouseover="" onmouseout="" onclick="" style="">
+      <td align="left" valign="top" colspan=""><span class="tabletitle">Estado</span></td>
+      <td align="left" valign="top" colspan=""><?=$sU[Cli_UFEnt]?></td>
+    </tr>
+    </table></td></tr></tbody></table>    </td> <td width="15"></td><td>
+    
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="">
+    <thead>
+    <tr>
+    <td width="1" align="left" nowrap><img src="themes/admin_default/space.gif" width="4" height="21"></td>
+    <td width="100%" colspan="" align="left" class="tickettextred style2" nowrap>Endere&ccedil;o de Faturamento</td>
+    </tr>
+    </thead>
+    <tbody><tr><td  colspan="2">
+    <table border="0" cellpadding="3" cellspacing="1" width="100%" id="Cobranca">
+    
+    <tr title="" onmouseover="" onmouseout="" onclick="" style="">
+      <td align="left" valign="top" colspan=""><span class="tabletitle">Endere&ccedil;o</span></td>
+      <td align="left" valign="top" colspan=""><?=$sU[Cli_EndCob]?></td>
+    </tr>
+    <tr title="" onmouseover="" onmouseout="" onclick="" style="">
+      <td align="left" valign="top" colspan=""><span class="tabletitle">Bairro</span></td>
+      <td align="left" valign="top" colspan=""><?=$sU[Cli_BaiCob]?></td>
+    </tr>
+    <tr title="" onmouseover="" onmouseout="" onclick="" style="">
+      <td align="left" valign="top" colspan=""><span class="tabletitle">CEP</span></td>
+      <td align="left" valign="top" colspan=""><?=$sU[Cli_CepCob]?></td>
+    </tr>
+    <tr title="" onmouseover="" onmouseout="" onclick="" style="">
+      <td align="left" valign="top" colspan=""><span class="tabletitle">Cidade</span></td>
+      <td align="left" valign="top" colspan=""><?=$sU[Cli_CidCob]?></td>
+    </tr>
+    <tr title="" onmouseover="" onmouseout="" onclick="" style="">
+      <td align="left" valign="top" colspan=""><span class="tabletitle">Estado</span></td>
+      <td align="left" valign="top" colspan=""><?=$sU[Cli_UFCob]?></td>
+    </tr>
+    </table></td></tr></tbody></table>
+    
+    
+    
+    
+    
+    
+    
+    
+    </td>
+    </tr>
+    </table></td>
+					</tr>
+										<tr height="4">
+						<td><img src="themes/admin_default/space.gif" height="4" width="1"></td>
+					</tr>
+									</table>
+			
